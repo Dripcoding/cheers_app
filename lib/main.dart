@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cheers_app/constants.dart';
-import 'package:cheers_app/pages/search/search.dart'; // added import
+import 'package:cheers_app/pages/search/search.dart';
 
 void main() {
   runApp(const MainApp());
@@ -17,9 +17,7 @@ class MainApp extends StatelessWidget {
       routes: {
         ROUTES.HOME.path:
             (context) => const Scaffold(body: Center(child: Text('Home'))),
-        ROUTES.SEARCH.path:
-            (context) =>
-                const SearchPage(), // replaced scaffold with SearchPage
+        ROUTES.SEARCH.path: (context) => const SearchPage(),
       },
     );
   }

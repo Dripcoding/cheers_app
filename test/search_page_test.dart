@@ -14,6 +14,7 @@ void main() {
 
     expect(find.byKey(const Key('search_page')), findsOneWidget);
     expect(find.byKey(const Key('search_form')), findsOneWidget);
+    expect(find.byKey(const Key('address_row')), findsOneWidget);
     expect(find.byKey(const Key('city_input')), findsOneWidget);
     expect(find.byKey(const Key('state_input')), findsOneWidget);
     expect(find.byKey(const Key('country_input')), findsOneWidget);

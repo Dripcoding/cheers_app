@@ -10,7 +10,10 @@ class SearchPage extends StatelessWidget {
       body: Center(
         child: ConstrainedBox(
           constraints: BoxConstraints(maxWidth: 1920),
-          child: const SearchForm(key: Key('search_form')),
+          child: Padding(
+            padding: EdgeInsets.fromLTRB(40, 20, 40, 20),
+            child: const SearchForm(key: Key('search_form')),
+          ),
         ),
       ),
     );
