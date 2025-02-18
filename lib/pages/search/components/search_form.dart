@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'address_row.dart';
+import 'identifier_fields.dart';
 
 class SearchForm extends StatefulWidget {
   const SearchForm({super.key});
@@ -13,6 +14,14 @@ class _SearchFormState extends State<SearchForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Form(key: _formKey, child: const AddressRow());
+    return Form(
+      key: _formKey,
+      child: Column(
+        children: [
+          const AddressRow(),
+          Row(children: const [IdentifierFields()]),
+        ],
+      ),
+    );
   }
 }

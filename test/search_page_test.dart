@@ -14,10 +14,16 @@ void main() {
 
     expect(find.byKey(const Key('search_page')), findsOneWidget);
     expect(find.byKey(const Key('search_form')), findsOneWidget);
+
+    // address inputs
     expect(find.byKey(const Key('address_row')), findsOneWidget);
     expect(find.byKey(const Key('city_input')), findsOneWidget);
     expect(find.byKey(const Key('state_input')), findsOneWidget);
     expect(find.byKey(const Key('country_input')), findsOneWidget);
     expect(find.byKey(const Key('postal_input')), findsOneWidget);
+
+    // identifier inputs
+    expect(find.byKey(const Key('by_type_input')), findsOneWidget);
+    expect(find.byKey(const Key('by_name_input')), findsOneWidget);
   });
 }

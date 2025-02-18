@@ -9,7 +9,7 @@ class SearchPage extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: ConstrainedBox(
-          constraints: BoxConstraints(maxWidth: 1920),
+          constraints: BoxConstraints(maxWidth: 1920, maxHeight: 1080),
           child: Padding(
             padding: EdgeInsets.fromLTRB(40, 20, 40, 20),
             child: const SearchForm(key: Key('search_form')),
