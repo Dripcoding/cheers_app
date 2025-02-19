@@ -17,46 +17,39 @@ class _IdentifierFieldsState extends State<IdentifierFields> {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
-        ConstrainedBox(
-          constraints: const BoxConstraints(maxHeight: 200, maxWidth: 500),
-          child: DropdownButtonFormField<String>(
-            key: const Key('by_type_input'),
-            decoration: const InputDecoration(labelText: 'Type'),
-            value: _selectedType,
-            items:
-                types
-                    .map(
-                      (type) =>
-                          DropdownMenuItem(value: type, child: Text(type)),
-                    )
-                    .toList(),
-            onChanged: (value) {
-              setState(() {
-                _selectedType = value;
-              });
-            },
-          ),
+        DropdownButtonFormField<String>(
+          key: const Key('by_type_input'),
+          decoration: const InputDecoration(labelText: 'Type'),
+          value: _selectedType,
+          items:
+              types
+                  .map(
+                    (type) => DropdownMenuItem(value: type, child: Text(type)),
+                  )
+                  .toList(),
+          onChanged: (value) {
+            setState(() {
+              _selectedType = value;
+            });
+          },
         ),
-        ConstrainedBox(
-          constraints: const BoxConstraints(maxHeight: 200, maxWidth: 500),
-          child: DropdownButtonFormField<String>(
-            key: const Key('by_name_input'),
-            decoration: const InputDecoration(labelText: 'Name'),
-            value: _selectedName,
-            items:
-                names
-                    .map(
-                      (name) =>
-                          DropdownMenuItem(value: name, child: Text(name)),
-                    )
-                    .toList(),
-            onChanged: (value) {
-              setState(() {
-                _selectedName = value;
-              });
-            },
-          ),
+        DropdownButtonFormField<String>(
+          key: const Key('by_name_input'),
+          decoration: const InputDecoration(labelText: 'Name'),
+          value: _selectedName,
+          items:
+              names
+                  .map(
+                    (name) => DropdownMenuItem(value: name, child: Text(name)),
+                  )
+                  .toList(),
+          onChanged: (value) {
+            setState(() {
+              _selectedName = value;
+            });
+          },
         ),
       ],
     );

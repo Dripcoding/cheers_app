@@ -25,5 +25,9 @@ void main() {
     // identifier inputs
     expect(find.byKey(const Key('by_type_input')), findsOneWidget);
     expect(find.byKey(const Key('by_name_input')), findsOneWidget);
+
+    // sort inputs
+    expect(find.byKey(const Key('number_input')), findsOneWidget);
+    expect(find.byKey(const Key('sort_order_input')), findsOneWidget);
   });
 }
