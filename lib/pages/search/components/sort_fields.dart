@@ -14,53 +14,46 @@ class _SortFieldsState extends State<SortFields> {
   Widget build(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Flexible(
-          flex: 1,
-          child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 150, maxHeight: 200),
-            child: TextFormField(
-              key: const Key('number_input'),
-              decoration: const InputDecoration(labelText: 'Number'),
-            ),
+        SizedBox(
+          width: 200,
+          child: TextFormField(
+            key: const Key('number_input'),
+            decoration: const InputDecoration(labelText: 'Number'),
           ),
         ),
-        Flexible(
-          flex: 1,
+        SizedBox(
+          width: 200,
           child: Column(
             key: const Key('sort_order_input'),
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              ConstrainedBox(
-                constraints: const BoxConstraints(
-                  maxWidth: 150,
-                  maxHeight: 200,
-                ),
-                child: RadioListTile<String>(
-                  title: const Text('asc'),
-                  value: 'asc',
-                  groupValue: _sortOrder,
-                  onChanged: (value) {
-                    setState(() {
-                      _sortOrder = value;
-                    });
-                  },
-                ),
+              const SizedBox(height: 20),
+              const Text(
+                'Sort Order',
+                style: TextStyle(fontWeight: FontWeight.w500),
               ),
-              ConstrainedBox(
-                constraints: const BoxConstraints(
-                  maxWidth: 150,
-                  maxHeight: 200,
-                ),
-                child: RadioListTile<String>(
-                  title: const Text('desc'),
-                  value: 'desc',
-                  groupValue: _sortOrder,
-                  onChanged: (value) {
-                    setState(() {
-                      _sortOrder = value;
-                    });
-                  },
-                ),
+              RadioListTile<String>(
+                title: const Text('asc'),
+                value: 'asc',
+                groupValue: _sortOrder,
+                onChanged: (value) {
+                  setState(() {
+                    _sortOrder = value;
+                  });
+                },
+              ),
+              RadioListTile<String>(
+                title: const Text('desc'),
+                value: 'desc',
+                groupValue: _sortOrder,
+                onChanged: (value) {
+                  setState(() {
+                    _sortOrder = value;
+                  });
+                },
               ),
             ],
           ),

@@ -5,27 +5,37 @@ class AddressRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return Column(
+      mainAxisSize: MainAxisSize.max,
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Expanded(
+        SizedBox(
+          width: 200,
           child: TextFormField(
             key: const Key('city_input'),
             decoration: const InputDecoration(labelText: 'City'),
           ),
         ),
-        Expanded(
+        const SizedBox(height: 20),
+        SizedBox(
+          width: 200,
           child: TextFormField(
             key: const Key('state_input'),
             decoration: const InputDecoration(labelText: 'State'),
           ),
         ),
-        Expanded(
+        const SizedBox(height: 20),
+        SizedBox(
+          width: 200,
           child: TextFormField(
             key: const Key('country_input'),
             decoration: const InputDecoration(labelText: 'Country'),
           ),
         ),
-        Expanded(
+        const SizedBox(height: 20),
+        SizedBox(
+          width: 200,
           child: TextFormField(
             key: const Key('postal_input'),
             decoration: const InputDecoration(labelText: 'Postal'),

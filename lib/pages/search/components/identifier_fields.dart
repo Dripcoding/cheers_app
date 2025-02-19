@@ -18,39 +18,52 @@ class _IdentifierFieldsState extends State<IdentifierFields> {
   Widget build(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        DropdownButtonFormField<String>(
-          key: const Key('by_type_input'),
-          decoration: const InputDecoration(labelText: 'Type'),
-          value: _selectedType,
-          items:
-              types
-                  .map(
-                    (type) => DropdownMenuItem(value: type, child: Text(type)),
-                  )
-                  .toList(),
-          onChanged: (value) {
-            setState(() {
-              _selectedType = value;
-            });
-          },
+        SizedBox(height: 68),
+        SizedBox(
+          width: 200,
+          child: DropdownButtonFormField<String>(
+            key: const Key('by_type_input'),
+            decoration: const InputDecoration(labelText: 'Type'),
+            value: _selectedType,
+            items:
+                types
+                    .map(
+                      (type) =>
+                          DropdownMenuItem(value: type, child: Text(type)),
+                    )
+                    .toList(),
+            onChanged: (value) {
+              setState(() {
+                _selectedType = value;
+              });
+            },
+          ),
         ),
-        DropdownButtonFormField<String>(
-          key: const Key('by_name_input'),
-          decoration: const InputDecoration(labelText: 'Name'),
-          value: _selectedName,
-          items:
-              names
-                  .map(
-                    (name) => DropdownMenuItem(value: name, child: Text(name)),
-                  )
-                  .toList(),
-          onChanged: (value) {
-            setState(() {
-              _selectedName = value;
-            });
-          },
+        const SizedBox(height: 20),
+        SizedBox(
+          width: 200,
+          child: DropdownButtonFormField<String>(
+            key: const Key('by_name_input'),
+            decoration: const InputDecoration(labelText: 'Name'),
+            value: _selectedName,
+            items:
+                names
+                    .map(
+                      (name) =>
+                          DropdownMenuItem(value: name, child: Text(name)),
+                    )
+                    .toList(),
+            onChanged: (value) {
+              setState(() {
+                _selectedName = value;
+              });
+            },
+          ),
         ),
+        const SizedBox(height: 20),
       ],
     );
   }

@@ -19,18 +19,19 @@ class _SearchFormState extends State<SearchForm> {
       key: _formKey,
       child: ConstrainedBox(
         constraints: const BoxConstraints(maxWidth: 1920, maxHeight: 1200),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.start,
+        child: Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const AddressRow(),
-            const Row(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(child: IdentifierFields()),
-                Expanded(child: SortFields()),
-              ],
+            Expanded(child: const AddressRow()),
+            Expanded(
+              child: const Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [IdentifierFields(), SortFields()],
+              ),
             ),
           ],
         ),
