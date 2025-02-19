@@ -11,10 +11,18 @@ class SearchPage extends StatelessWidget {
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 1920, maxHeight: 1200),
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(40, 20, 40, 20),
+            padding: const EdgeInsets.fromLTRB(40, 60, 40, 60),
             child: Column(
-              children: const [
-                Expanded(child: SearchForm(key: Key('search_form'))),
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Expanded(child: SearchForm(key: Key('search_form'))),
+                FilledButton(
+                  onPressed: () {
+                    // ...handle button press...
+                  },
+                  child: const Text("Find your brewery"),
+                ),
               ],
             ),
           ),

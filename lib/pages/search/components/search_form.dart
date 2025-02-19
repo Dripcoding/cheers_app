@@ -21,8 +21,6 @@ class _SearchFormState extends State<SearchForm> {
         constraints: const BoxConstraints(maxWidth: 1920, maxHeight: 1200),
         child: Row(
           mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Expanded(child: const AddressRow()),
             Expanded(
