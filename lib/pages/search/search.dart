@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cheers_app/pages/search/components/search_form.dart';
+import 'package:cheers_app/openBreweryService.dart'; // added import
 
 class SearchPage extends StatelessWidget {
   const SearchPage({super.key = const Key('search_page')});
@@ -18,8 +19,11 @@ class SearchPage extends StatelessWidget {
               children: [
                 const Expanded(child: SearchForm(key: Key('search_form'))),
                 FilledButton(
-                  onPressed: () {
-                    // ...handle button press...
+                  key: const Key('search_brewery_button'),
+                  onPressed: () async {
+                    final response = await OpenBreweryService.getBreweries(
+                      null,
+                    );
                   },
                   child: const Text("Find your brewery"),
                 ),
