@@ -4,8 +4,7 @@ import 'identifier_fields.dart';
 import 'sort_fields.dart';
 
 class SearchForm extends StatefulWidget {
-  final GlobalKey<FormState> formKey;
-  const SearchForm({super.key, required this.formKey});
+  const SearchForm({super.key});
 
   @override
   State<SearchForm> createState() => _SearchFormState();
@@ -15,7 +14,7 @@ class _SearchFormState extends State<SearchForm> {
   @override
   Widget build(BuildContext context) {
     return Form(
-      key: widget.formKey,
+      key: widget.key,
       child: ConstrainedBox(
         constraints: const BoxConstraints(maxWidth: 1920, maxHeight: 1200),
         child: Row(

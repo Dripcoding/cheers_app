@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 import 'package:cheers_app/pages/search/components/search_form.dart';
 import 'package:cheers_app/openBreweryService.dart';
+import 'package:cheers_app/BreweriesState.dart';
 
 class SearchPage extends StatelessWidget {
   final http.Client _httpClient = http.Client();
@@ -12,6 +14,8 @@ class SearchPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final breweriesState = Provider.of<BreweriesState>(context, listen: false);
+
     return Scaffold(
       body: Center(
         child: ConstrainedBox(
@@ -22,22 +26,16 @@ class SearchPage extends StatelessWidget {
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                // Pass the global key to the SearchForm widget.
-                Expanded(
-                  child: SearchForm(key: Key('search_form'), formKey: formKey),
-                ),
+                Expanded(child: SearchForm(key: Key('search_form'))),
                 FilledButton(
                   key: const Key('search_brewery_button'),
                   onPressed: () async {
-                    // Retrieve the input values from the SearchForm state.
-
-                    var state = formKey.currentState;
-                    // var city = formKey.currentState.currentState?.fields['city']?.value;
-
-                    final response = await OpenBreweryService.getBreweries(
+                    final breweries = await OpenBreweryService.getBreweries(
                       null,
                       _httpClient,
                     );
+
+                    breweriesState.addBreweries(breweries);
                   },
                   child: const Text("Find your brewery"),
                 ),
