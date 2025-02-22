@@ -37,22 +37,22 @@ class Brewery {
 
   factory Brewery.fromJson(Map<String, dynamic> json) {
     return Brewery(
-      id: json['id'] as String,
-      name: json['name'] as String,
-      breweryType: json['brewery_type'] as String,
-      address1: json['address_1'] as String,
-      address2: json['address_2'] as String?,
-      address3: json['address_3'] as String?,
-      city: json['city'] as String,
-      stateProvince: json['state_province'] as String,
-      postalCode: json['postal_code'] as String,
-      country: json['country'] as String,
-      longitude: json['longitude'] as String,
-      latitude: json['latitude'] as String,
-      phone: json['phone'] as String,
-      websiteUrl: json['website_url'] as String,
-      state: json['state'] as String,
-      street: json['street'] as String,
+      id: json['id']?.toString() ?? '',
+      name: json['name']?.toString() ?? '',
+      breweryType: json['brewery_type']?.toString() ?? '',
+      address1: json['address_1']?.toString() ?? '',
+      address2: json['address_2']?.toString(),
+      address3: json['address_3']?.toString(),
+      city: json['city']?.toString() ?? '',
+      stateProvince: json['state_province']?.toString() ?? '',
+      postalCode: json['postal_code']?.toString() ?? '',
+      country: json['country']?.toString() ?? '',
+      longitude: json['longitude']?.toString() ?? '',
+      latitude: json['latitude']?.toString() ?? '',
+      phone: json['phone']?.toString() ?? '',
+      websiteUrl: json['website_url']?.toString() ?? '',
+      state: json['state']?.toString() ?? '',
+      street: json['street']?.toString() ?? '',
     );
   }
 
