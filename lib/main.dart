@@ -17,7 +17,7 @@ class MainApp extends StatelessWidget {
       routes: {
         ROUTES.HOME.path:
             (context) => const Scaffold(body: Center(child: Text('Home'))),
-        ROUTES.SEARCH.path: (context) => const SearchPage(),
+        ROUTES.SEARCH.path: (context) => SearchPage(),
       },
     );
   }
