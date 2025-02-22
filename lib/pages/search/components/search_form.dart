@@ -2,25 +2,25 @@ import 'package:flutter/material.dart';
 import 'address_row.dart';
 import 'identifier_fields.dart';
 import 'sort_fields.dart';
+import 'package:cheers_app/constants/inputs.dart';
 
-class SearchForm extends StatefulWidget {
-  const SearchForm({super.key});
+class SearchForm extends StatelessWidget {
+  final Map<InputNames, TextEditingController> addressControllers;
 
-  @override
-  State<SearchForm> createState() => _SearchFormState();
-}
+  const SearchForm({
+    super.key = const Key('search_form'),
+    required this.addressControllers,
+  });
 
-class _SearchFormState extends State<SearchForm> {
   @override
   Widget build(BuildContext context) {
     return Form(
-      key: widget.key,
       child: ConstrainedBox(
         constraints: const BoxConstraints(maxWidth: 1920, maxHeight: 1200),
         child: Row(
           mainAxisSize: MainAxisSize.max,
           children: [
-            Expanded(child: const AddressRow()),
+            Expanded(child: AddressRow(controllers: addressControllers)),
             Expanded(
               child: const Column(
                 mainAxisSize: MainAxisSize.max,

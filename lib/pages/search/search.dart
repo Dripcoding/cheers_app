@@ -4,13 +4,47 @@ import 'package:provider/provider.dart';
 import 'package:cheers_app/pages/search/components/search_form.dart';
 import 'package:cheers_app/openBreweryService.dart';
 import 'package:cheers_app/BreweriesState.dart';
+import 'package:cheers_app/constants/inputs.dart';
 
-class SearchPage extends StatelessWidget {
+class SearchPage extends StatefulWidget {
+  const SearchPage({super.key = const Key('search_page')});
+
+  @override
+  State<SearchPage> createState() => _SearchPageState();
+}
+
+class _SearchPageState extends State<SearchPage> {
   final http.Client _httpClient = http.Client();
 
-  SearchPage({super.key = const Key('search_page')});
-
   final formKey = GlobalKey<FormState>();
+
+  final TextEditingController _cityInputController = TextEditingController();
+  final TextEditingController _stateInputController = TextEditingController();
+  final TextEditingController _countryInputController = TextEditingController();
+  final TextEditingController _postalInputController = TextEditingController();
+
+  late final Map<InputNames, TextEditingController> _addressControllers;
+
+  @override
+  void initState() {
+    super.initState();
+    _addressControllers = {
+      InputNames.city: _cityInputController,
+      InputNames.state: _stateInputController,
+      InputNames.country: _countryInputController,
+      InputNames.postal: _postalInputController,
+    };
+  }
+
+  @override
+  void dispose() {
+    _httpClient.close();
+    _cityInputController.dispose();
+    _stateInputController.dispose();
+    _countryInputController.dispose();
+    _postalInputController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +60,12 @@ class SearchPage extends StatelessWidget {
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Expanded(child: SearchForm(key: Key('search_form'))),
+                Expanded(
+                  child: SearchForm(
+                    key: Key('search_form'),
+                    addressControllers: _addressControllers,
+                  ),
+                ),
                 FilledButton(
                   key: const Key('search_brewery_button'),
                   onPressed: () async {
@@ -34,6 +73,11 @@ class SearchPage extends StatelessWidget {
                       null,
                       _httpClient,
                     );
+
+                    print('city ${_cityInputController.text}');
+                    print('state ${_stateInputController.text}');
+                    print('country ${_countryInputController.text}');
+                    print('postal ${_postalInputController.text}');
 
                     breweriesState.addBreweries(breweries);
                   },

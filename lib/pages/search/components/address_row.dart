@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:cheers_app/constants/inputs.dart';
 
 class AddressRow extends StatelessWidget {
-  const AddressRow({super.key = const Key('address_row')});
+  final Map<InputNames, TextEditingController> controllers;
+  const AddressRow({
+    super.key = const Key('address_row'),
+    required this.controllers,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -13,6 +18,7 @@ class AddressRow extends StatelessWidget {
         SizedBox(
           width: 200,
           child: TextFormField(
+            controller: controllers[InputNames.city],
             key: const Key('city_input'),
             decoration: const InputDecoration(labelText: 'City'),
           ),
@@ -21,6 +27,7 @@ class AddressRow extends StatelessWidget {
         SizedBox(
           width: 200,
           child: TextFormField(
+            controller: controllers[InputNames.state],
             key: const Key('state_input'),
             decoration: const InputDecoration(labelText: 'State'),
           ),
@@ -29,6 +36,7 @@ class AddressRow extends StatelessWidget {
         SizedBox(
           width: 200,
           child: TextFormField(
+            controller: controllers[InputNames.country],
             key: const Key('country_input'),
             decoration: const InputDecoration(labelText: 'Country'),
           ),
@@ -37,6 +45,7 @@ class AddressRow extends StatelessWidget {
         SizedBox(
           width: 200,
           child: TextFormField(
+            controller: controllers[InputNames.postal],
             key: const Key('postal_input'),
             decoration: const InputDecoration(labelText: 'Postal'),
           ),
