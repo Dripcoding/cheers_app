@@ -5,6 +5,7 @@ import 'package:cheers_app/pages/search/components/search_form.dart';
 import 'package:cheers_app/openBreweryService.dart';
 import 'package:cheers_app/BreweriesState.dart';
 import 'package:cheers_app/constants/inputs.dart';
+import 'package:cheers_app/IdentifierFieldsState.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key = const Key('search_page')});
@@ -61,9 +62,12 @@ class _SearchPageState extends State<SearchPage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Expanded(
-                  child: SearchForm(
-                    key: Key('search_form'),
-                    addressControllers: _addressControllers,
+                  child: ChangeNotifierProvider(
+                    create: (context) => IdentifierFieldsState(),
+                    child: SearchForm(
+                      key: const Key('search_form'),
+                      addressControllers: _addressControllers,
+                    ),
                   ),
                 ),
                 FilledButton(
