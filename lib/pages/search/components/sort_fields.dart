@@ -18,7 +18,13 @@ class SortFields extends StatelessWidget {
               width: 200,
               child: TextFormField(
                 key: const Key('number_input'),
-                decoration: const InputDecoration(labelText: 'Number'),
+                initialValue: state.numberOfBreweries,
+                decoration: const InputDecoration(
+                  labelText: 'Number of Breweries',
+                ),
+                onChanged: (value) {
+                  state.setNumberOfBreweries(value);
+                },
               ),
             ),
             SizedBox(
