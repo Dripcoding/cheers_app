@@ -51,6 +51,11 @@ class _SearchPageState extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
     final breweriesState = Provider.of<BreweriesState>(context, listen: false);
+    final identifierState = Provider.of<IdentifierFieldsState>(
+      context,
+      listen: false,
+    );
+    final sortState = Provider.of<SortFieldsState>(context, listen: false);
 
     return Scaffold(
       body: Center(
@@ -63,32 +68,38 @@ class _SearchPageState extends State<SearchPage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Expanded(
-                  child: MultiProvider(
-                    providers: [
-                      ChangeNotifierProvider(
-                        create: (_) => IdentifierFieldsState(),
-                      ),
-                      ChangeNotifierProvider(create: (_) => SortFieldsState()),
-                    ],
-                    child: SearchForm(
-                      key: const Key('search_form'),
-                      addressControllers: _addressControllers,
-                    ),
+                  child: SearchForm(
+                    key: const Key('search_form'),
+                    addressControllers: _addressControllers,
                   ),
                 ),
                 FilledButton(
                   key: const Key('search_brewery_button'),
                   onPressed: () async {
+                    final queryParams = <String, String>{
+                      ..._addressControllers.map(
+                        (key, controller) =>
+                            MapEntry(key.name, controller.text),
+                      ),
+                      if (identifierState.selectedType != null &&
+                          identifierState.selectedType!.isNotEmpty)
+                        InputNames.type.name: identifierState.selectedType!,
+                      if (identifierState.selectedName != null &&
+                          identifierState.selectedName!.isNotEmpty)
+                        InputNames.breweryName.name:
+                            identifierState.selectedName!,
+                      if (sortState.sortOrder != null &&
+                          sortState.sortOrder!.isNotEmpty)
+                        InputNames.sort.name: sortState.sortOrder!,
+                      if (sortState.numberOfBreweries.isNotEmpty)
+                        InputNames.numberOfBreweries.name:
+                            sortState.numberOfBreweries,
+                    };
+
                     final breweries = await OpenBreweryService.getBreweries(
-                      null,
+                      queryParams,
                       _httpClient,
                     );
-
-                    print('city ${_cityInputController.text}');
-                    print('state ${_stateInputController.text}');
-                    print('country ${_countryInputController.text}');
-                    print('postal ${_postalInputController.text}');
-
                     breweriesState.addBreweries(breweries);
                   },
                   child: const Text("Find your brewery"),

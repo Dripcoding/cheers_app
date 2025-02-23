@@ -8,7 +8,7 @@ class OpenBreweryService {
   static final _logger = Logger();
 
   static Future<List<Brewery>> getBreweries(
-    Map<String, String>? queryParams,
+    Map<String, String?>? queryParams,
     http.Client client,
   ) async {
     final url = Uri.https(BASE_URL, '/v1/breweries', queryParams);

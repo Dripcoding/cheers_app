@@ -3,6 +3,8 @@ import 'package:cheers_app/constants.dart';
 import 'package:cheers_app/pages/search/search.dart';
 import 'package:provider/provider.dart';
 import 'package:cheers_app/BreweriesState.dart';
+import 'package:cheers_app/IdentifierFieldsState.dart';
+import 'package:cheers_app/SortFieldsState.dart';
 
 void main() {
   runApp(const MainApp());
@@ -21,7 +23,16 @@ class MainApp extends StatelessWidget {
         routes: {
           ROUTES.HOME.path:
               (context) => const Scaffold(body: Center(child: Text('Home'))),
-          ROUTES.SEARCH.path: (context) => SearchPage(),
+          ROUTES.SEARCH.path:
+              (context) => MultiProvider(
+                providers: [
+                  ChangeNotifierProvider(
+                    create: (_) => IdentifierFieldsState(),
+                  ),
+                  ChangeNotifierProvider(create: (_) => SortFieldsState()),
+                ],
+                child: SearchPage(),
+              ),
         },
       ),
     );
