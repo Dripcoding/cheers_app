@@ -23,4 +23,21 @@ class OpenBreweryService {
       throw Exception('Failed to fetch breweries due to an error');
     }
   }
+
+  static Future<List<String>> getBreweryNames(
+    Map<String, String?>? queryParams,
+    http.Client client,
+  ) async {
+    final url = Uri.https(BASE_URL, '/v1/breweries/autocomplete', queryParams);
+    try {
+      _logger.i('Fetching brewery names from $url');
+      final response = await client.get(url);
+      _logger.i('Response ${response.body}');
+      final List<dynamic> decoded = jsonDecode(response.body);
+      return decoded.map((item) => item.name.toString()).toList();
+    } catch (error) {
+      _logger.e('Exception caught: $error');
+      throw Exception('Failed to fetch brewery names due to an error');
+    }
+  }
 }
