@@ -7,6 +7,7 @@ import 'package:cheers_app/BreweriesState.dart';
 import 'package:cheers_app/constants/inputs.dart';
 import 'package:cheers_app/IdentifierFieldsState.dart';
 import 'package:cheers_app/SortFieldsState.dart';
+import 'package:cheers_app/utils/utils.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key = const Key('search_page')});
@@ -76,25 +77,11 @@ class _SearchPageState extends State<SearchPage> {
                 FilledButton(
                   key: const Key('search_brewery_button'),
                   onPressed: () async {
-                    final queryParams = <String, String>{
-                      ..._addressControllers.map(
-                        (key, controller) =>
-                            MapEntry(key.name, controller.text),
-                      ),
-                      if (identifierState.selectedType != null &&
-                          identifierState.selectedType!.isNotEmpty)
-                        InputNames.type.name: identifierState.selectedType!,
-                      if (identifierState.selectedName != null &&
-                          identifierState.selectedName!.isNotEmpty)
-                        InputNames.breweryName.name:
-                            identifierState.selectedName!,
-                      if (sortState.sortOrder != null &&
-                          sortState.sortOrder!.isNotEmpty)
-                        InputNames.sort.name: sortState.sortOrder!,
-                      if (sortState.numberOfBreweries.isNotEmpty)
-                        InputNames.numberOfBreweries.name:
-                            sortState.numberOfBreweries,
-                    };
+                    final queryParams = getQueryParams(
+                      _addressControllers,
+                      identifierState,
+                      sortState,
+                    );
 
                     final breweries = await OpenBreweryService.getBreweries(
                       queryParams,
