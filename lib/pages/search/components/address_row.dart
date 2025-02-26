@@ -23,7 +23,7 @@ class AddressRow extends StatefulWidget {
 class _AddressRowState extends State<AddressRow> {
   late FocusNode cityInputFocusNode;
   late FocusNode stateInputFocusNode;
-  late FocusNode countryInputFocusNode;
+  // late FocusNode countryInputFocusNode;
   late FocusNode postalInputFocusNode;
 
   @override
@@ -42,32 +42,39 @@ class _AddressRowState extends State<AddressRow> {
 
     cityInputFocusNode = FocusNode();
     stateInputFocusNode = FocusNode();
-    countryInputFocusNode = FocusNode();
+    // countryInputFocusNode = FocusNode();
     postalInputFocusNode = FocusNode();
 
-    cityInputFocusNode.addListener(() async {
-      if (!cityInputFocusNode.hasFocus) {
-        final queryParams = getQueryParams(
-          widget.controllers,
-          identifierFieldsState,
-          sortFieldsState,
-        );
+    void addFocusListener(FocusNode focusNode) {
+      focusNode.addListener(() async {
+        if (!focusNode.hasFocus) {
+          final queryParams = getQueryParams(
+            widget.controllers,
+            identifierFieldsState,
+            sortFieldsState,
+          );
 
-        final names = await OpenBreweryService.getBreweryNames(
-          queryParams,
-          http.Client(),
-        );
+          final names = await OpenBreweryService.getBreweryNames(
+            queryParams,
+            http.Client(),
+          );
 
-        breweriesState.addBreweryNames(names);
-      }
-    });
+          breweriesState.addBreweryNames(names);
+        }
+      });
+    }
+
+    addFocusListener(cityInputFocusNode);
+    addFocusListener(stateInputFocusNode);
+    // addFocusListener(countryInputFocusNode);
+    addFocusListener(postalInputFocusNode);
   }
 
   @override
   void dispose() {
     cityInputFocusNode.dispose();
     stateInputFocusNode.dispose();
-    countryInputFocusNode.dispose();
+    // countryInputFocusNode.dispose();
     postalInputFocusNode.dispose();
     super.dispose();
   }
@@ -95,6 +102,7 @@ class _AddressRowState extends State<AddressRow> {
             controller: widget.controllers[InputNames.state],
             key: const Key('state_input'),
             decoration: const InputDecoration(labelText: 'State'),
+            focusNode: stateInputFocusNode,
           ),
         ),
         const SizedBox(height: 20),
@@ -104,6 +112,7 @@ class _AddressRowState extends State<AddressRow> {
             controller: widget.controllers[InputNames.country],
             key: const Key('country_input'),
             decoration: const InputDecoration(labelText: 'Country'),
+            // focusNode: countryInputFocusNode,
           ),
         ),
         const SizedBox(height: 20),
@@ -113,6 +122,7 @@ class _AddressRowState extends State<AddressRow> {
             controller: widget.controllers[InputNames.postal],
             key: const Key('postal_input'),
             decoration: const InputDecoration(labelText: 'Postal'),
+            focusNode: postalInputFocusNode,
           ),
         ),
       ],
