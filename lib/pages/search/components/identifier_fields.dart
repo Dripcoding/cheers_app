@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:cheers_app/IdentifierFieldsState.dart';
+import 'package:cheers_app/BreweriesState.dart';
 
 class IdentifierFields extends StatelessWidget {
   const IdentifierFields({super.key = const Key('identifier_inputs')});
@@ -9,6 +10,8 @@ class IdentifierFields extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<IdentifierFieldsState>(
       builder: (context, state, child) {
+        final breweryNames = Provider.of<BreweriesState>(context).breweryNames;
+
         return Column(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -42,8 +45,9 @@ class IdentifierFields extends StatelessWidget {
                 key: const Key('by_name_input'),
                 decoration: const InputDecoration(labelText: 'Name'),
                 value: state.selectedName,
+                isExpanded: true,
                 items:
-                    ['Name1', 'Name2', 'Name3']
+                    breweryNames
                         .map(
                           (name) =>
                               DropdownMenuItem(value: name, child: Text(name)),

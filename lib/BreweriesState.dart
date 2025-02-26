@@ -1,3 +1,4 @@
+// ignore_for_file: file_names
 import 'dart:collection';
 import 'package:cheers_app/models/brewery.dart';
 import 'package:flutter/material.dart';

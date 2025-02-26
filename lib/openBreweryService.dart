@@ -52,7 +52,7 @@ class OpenBreweryService {
       final response = await client.get(url);
       _logger.i('Response ${response.body}');
       final List<dynamic> decoded = jsonDecode(response.body);
-      return decoded.map((item) => item.value.toString()).toList();
+      return decoded.map((item) => item['name'].toString()).toList();
     } catch (error) {
       _logger.e('Exception caught: $error');
       throw Exception('Failed to fetch brewery names due to an error');
