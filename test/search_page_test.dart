@@ -69,7 +69,7 @@ void main() {
     });
   });
 
-  testWidgets('updates state when a dropdown value is selected', (
+  testWidgets('updates identifier state when a dropdown value is selected', (
     WidgetTester tester,
   ) async {
     await tester.pumpWidget(

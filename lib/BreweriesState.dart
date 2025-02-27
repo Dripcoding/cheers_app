@@ -16,7 +16,7 @@ class BreweriesState extends ChangeNotifier {
   }
 
   void addBreweryNames(List<String> names) {
-    breweryNames.addAll(names);
+    breweryNames = names;
     notifyListeners();
   }
 }
