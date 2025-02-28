@@ -5,6 +5,7 @@ import 'package:cheers_app/pages/search/components/search_form.dart';
 import 'package:cheers_app/openBreweryService.dart';
 import 'package:cheers_app/BreweriesState.dart';
 import 'package:cheers_app/constants/inputs.dart';
+import 'package:cheers_app/constants.dart';
 import 'package:cheers_app/IdentifierFieldsState.dart';
 import 'package:cheers_app/SortFieldsState.dart';
 import 'package:cheers_app/utils/utils.dart';
@@ -88,6 +89,10 @@ class _SearchPageState extends State<SearchPage> {
                       _httpClient,
                     );
                     breweriesState.addBreweries(breweries);
+
+                    if (context.mounted) {
+                      Navigator.pushNamed(context, ROUTES.LIST.path);
+                    }
                   },
                   child: const Text("Find your brewery"),
                 ),

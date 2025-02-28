@@ -1,9 +1,11 @@
+import 'package:cheers_app/pages/search/components/sort_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:cheers_app/main.dart';
 import 'package:provider/provider.dart';
 import 'package:cheers_app/pages/search/components/identifier_fields.dart';
 import 'package:cheers_app/IdentifierFieldsState.dart';
+import 'package:cheers_app/SortFieldsState.dart';
 
 void main() {
   Widget createWidgetUnderTest() {
@@ -107,5 +109,38 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(identifierState.selectedName, equals(name));
+  });
+
+  testWidgets('updates sort fields state when sort input vaues are changed', (
+    WidgetTester tester,
+  ) async {
+    final sortFieldsState = SortFieldsState();
+    await tester.pumpWidget(
+      MultiProvider(
+        providers: [ChangeNotifierProvider(create: (_) => sortFieldsState)],
+        child: const MaterialApp(home: Scaffold(body: SortFields())),
+      ),
+    );
+
+    final numberInputFinder = find.byKey(const Key('number_input'));
+    expect(numberInputFinder, findsOneWidget);
+
+    const testNumber = '42';
+    await tester.enterText(numberInputFinder, testNumber);
+    await tester.pumpAndSettle();
+
+    expect(sortFieldsState.numberOfBreweries, equals(testNumber));
+
+    final ascRadioFinder = find.widgetWithText(RadioListTile<String>, 'asc');
+    expect(ascRadioFinder, findsOneWidget);
+    await tester.tap(ascRadioFinder);
+    await tester.pumpAndSettle();
+
+    expect(sortFieldsState.sortOrder, equals('asc'));
+
+    final descRadioFinder = find.widgetWithText(RadioListTile<String>, 'desc');
+    await tester.tap(descRadioFinder);
+    await tester.pumpAndSettle();
+    expect(sortFieldsState.sortOrder, equals('desc'));
   });
 }

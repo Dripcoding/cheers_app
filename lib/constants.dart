@@ -1,8 +1,8 @@
 // ignore_for_file: constant_identifier_names
-
 enum ROUTES {
   HOME('/'),
-  SEARCH('/search');
+  SEARCH('/search'),
+  LIST('/list');
 
   final String path;
 

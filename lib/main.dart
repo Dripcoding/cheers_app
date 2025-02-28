@@ -1,3 +1,4 @@
+import 'package:cheers_app/pages/list/list.dart';
 import 'package:flutter/material.dart';
 import 'package:cheers_app/constants.dart';
 import 'package:cheers_app/pages/search/search.dart';
@@ -33,6 +34,7 @@ class MainApp extends StatelessWidget {
                 ],
                 child: SearchPage(),
               ),
+          ROUTES.LIST.path: (context) => const ListPage(),
         },
       ),
     );
