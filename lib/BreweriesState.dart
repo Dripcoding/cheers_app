@@ -7,6 +7,8 @@ class BreweriesState extends ChangeNotifier {
   List<Brewery> breweries = [];
   List<String> breweryNames = [];
 
+  Brewery? activeBrewery;
+
   UnmodifiableListView<Brewery> get breweriesList =>
       UnmodifiableListView(breweries);
 
@@ -17,6 +19,11 @@ class BreweriesState extends ChangeNotifier {
 
   void addBreweryNames(List<String> names) {
     breweryNames = names;
+    notifyListeners();
+  }
+
+  void setActiveBrewery(Brewery brewery) {
+    activeBrewery = brewery;
     notifyListeners();
   }
 }

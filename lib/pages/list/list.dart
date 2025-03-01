@@ -1,3 +1,4 @@
+import 'package:cheers_app/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:cheers_app/BreweriesState.dart';
@@ -25,6 +26,13 @@ class ListPage extends StatelessWidget {
                     title: Text(brewery.name),
                     subtitle: Text(brewery.city),
                     trailing: Text(brewery.state),
+                    onTap: () {
+                      breweriesState.setActiveBrewery(brewery);
+
+                      if (context.mounted) {
+                        Navigator.pushNamed(context, ROUTES.DETAILS.path);
+                      }
+                    },
                   ),
                 );
               },

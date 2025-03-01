@@ -1,9 +1,11 @@
+// ignore: file_names
 import 'package:http/http.dart' as http;
 import 'package:logger/logger.dart';
 import 'package:cheers_app/models/brewery.dart';
 import 'dart:convert';
 
 class OpenBreweryService {
+  // ignore: non_constant_identifier_names
   static final BASE_URL = 'api.openbrewerydb.org';
   static final _logger = Logger();
 
@@ -51,6 +53,9 @@ class OpenBreweryService {
       _logger.i('Fetching brewery names from $url');
       final response = await client.get(url);
       _logger.i('Response ${response.body}');
+      if (response.body.trim().isEmpty) {
+        return [];
+      }
       final List<dynamic> decoded = jsonDecode(response.body);
       return decoded.map((item) => item['name'].toString()).toList();
     } catch (error) {

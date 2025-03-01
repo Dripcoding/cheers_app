@@ -49,5 +49,29 @@ void main() {
         expect(actualJson, equals(expectedJson));
       },
     );
+
+    test(
+      'getBreweryNames returns a list of brewery names equal to sample JSON data',
+      () async {
+        final client = MockClient();
+        const sampleJsonString = '''
+          [
+            {"name": "Fake Brewery 1"},
+            {"name": "Fake Brewery 2"}
+          ]
+        ''';
+
+        when(
+          client.get(
+            Uri.parse(
+              'https://api.openbrewerydb.org/v1/breweries/autocomplete?query=',
+            ),
+          ),
+        ).thenAnswer((_) async => http.Response(sampleJsonString, 200));
+
+        final names = await OpenBreweryService.getBreweryNames(null, client);
+        expect(names, equals(["Fake Brewery 1", "Fake Brewery 2"]));
+      },
+    );
   });
 }

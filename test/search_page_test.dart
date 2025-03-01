@@ -6,7 +6,14 @@ import 'package:provider/provider.dart';
 import 'package:cheers_app/pages/search/components/identifier_fields.dart';
 import 'package:cheers_app/IdentifierFieldsState.dart';
 import 'package:cheers_app/SortFieldsState.dart';
+import 'package:http/http.dart' as http;
+import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart';
+import 'dart:convert';
 
+import 'open_brewery_service_test.mocks.dart';
+
+@GenerateMocks([http.Client])
 void main() {
   Widget createWidgetUnderTest() {
     return MainApp();
@@ -40,6 +47,24 @@ void main() {
     testWidgets('Typing in address inputs updates the search page state', (
       WidgetTester tester,
     ) async {
+      final client = MockClient();
+      when(
+        client.get(
+          Uri.https(
+            'api.openbrewerydb.org',
+            '/v1/breweries/autocomplete',
+            null,
+          ),
+        ),
+      ).thenAnswer(
+        (_) async => http.Response(
+          jsonEncode([
+            {'name': 'name1'},
+          ]),
+          200,
+        ),
+      );
+
       await tester.pumpWidget(createWidgetUnderTest());
 
       const testCity = 'Test City';

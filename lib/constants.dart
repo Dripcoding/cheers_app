@@ -2,13 +2,15 @@
 enum ROUTES {
   HOME('/'),
   SEARCH('/search'),
-  LIST('/list');
+  LIST('/list'),
+  DETAILS('/details');
 
   final String path;
 
   const ROUTES(this.path);
 }
 
+// ignore: camel_case_types
 enum BREWERY_TYPES {
   MICRO('micro'),
   NANO('nano'),

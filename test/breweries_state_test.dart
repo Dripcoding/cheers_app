@@ -87,5 +87,32 @@ void main() {
       state.addBreweries([brewery]);
       expect(listenerCalled, equals(1));
     });
+
+    test('setActiveBrewery sets the active brewery correctly', () {
+      final dummyBrewery = Brewery(
+        id: 'dummy',
+        name: 'Test Brewery',
+        breweryType: 'micro',
+        address1: '',
+        address2: null,
+        address3: null,
+        city: 'Test City',
+        stateProvince: 'Test State',
+        postalCode: '',
+        country: '',
+        longitude: '0.0',
+        latitude: '0.0',
+        phone: '',
+        websiteUrl: '',
+        state: 'Test State',
+        street: '',
+      );
+
+      final breweriesState = BreweriesState();
+
+      breweriesState.setActiveBrewery(dummyBrewery);
+
+      expect(breweriesState.activeBrewery, equals(dummyBrewery));
+    });
   });
 }

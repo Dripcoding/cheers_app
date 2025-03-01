@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:cheers_app/BreweriesState.dart';
 import 'package:cheers_app/IdentifierFieldsState.dart';
 import 'package:cheers_app/SortFieldsState.dart';
+import 'package:cheers_app/pages/brewery/brewery_details.dart';
 
 void main() {
   runApp(const MainApp());
@@ -35,6 +36,7 @@ class MainApp extends StatelessWidget {
                 child: SearchPage(),
               ),
           ROUTES.LIST.path: (context) => const ListPage(),
+          ROUTES.DETAILS.path: (context) => const BreweryDetailsPage(),
         },
       ),
     );

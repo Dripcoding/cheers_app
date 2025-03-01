@@ -1,5 +1,4 @@
 import 'package:cheers_app/IdentifierFieldsState.dart';
-import 'package:cheers_app/pages/search/components/sort_fields.dart';
 import 'package:cheers_app/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
