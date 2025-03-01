@@ -11,6 +11,16 @@ class ListPage extends StatelessWidget {
     final breweriesState = Provider.of<BreweriesState>(context, listen: false);
 
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          key: const Key('back_button'),
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pushNamed(context, ROUTES.SEARCH.path);
+          },
+        ),
+        title: const Text('Breweries List'),
+      ),
       body: Center(
         child: ConstrainedBox(
           constraints: BoxConstraints(maxWidth: 1920, maxHeight: 1200),
