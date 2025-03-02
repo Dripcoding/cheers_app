@@ -65,6 +65,20 @@ void main() {
     expect(find.text(brewery2.name), findsOneWidget);
   });
 
+  testWidgets('ListPage has a title', (WidgetTester tester) async {
+    final breweriesState = BreweriesState();
+
+    await tester.pumpWidget(
+      ChangeNotifierProvider<BreweriesState>.value(
+        value: breweriesState,
+        child: const MaterialApp(home: ListPage()),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    expect(find.text('Breweries List'), findsOneWidget);
+  });
+
   testWidgets('ListPage has a back button', (WidgetTester tester) async {
     final breweriesState = BreweriesState();
 

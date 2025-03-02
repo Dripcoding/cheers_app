@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
+
 import 'package:latlong2/latlong.dart';
 import 'package:provider/provider.dart';
 import 'package:cheers_app/BreweriesState.dart';
+import 'package:cheers_app/pages/brewery/components/map_tooltip.dart'; // Updated import
 
 class BreweryDetailsPage extends StatelessWidget {
   static const routeName = '/brewery_details';
@@ -23,9 +25,11 @@ class BreweryDetailsPage extends StatelessWidget {
 
     final latitude = double.tryParse(brewery.latitude) ?? 0.0;
     final longitude = double.tryParse(brewery.longitude) ?? 0.0;
+    // Prepare an address string for the tooltip.
+    final address = '${brewery.address1}, ${brewery.city}, ${brewery.state}';
 
     return Scaffold(
-      appBar: AppBar(title: Text(brewery.name)),
+      appBar: AppBar(title: Text(brewery.name), leading: const BackButton()),
       body: Column(
         children: [
           Expanded(
@@ -44,6 +48,12 @@ class BreweryDetailsPage extends StatelessWidget {
                 MarkerLayer(
                   markers: [
                     Marker(
+                      width: 200,
+                      height: 50,
+                      point: LatLng(latitude + 0.006, longitude),
+                      builder: (context) => MapToolTip(address: address),
+                    ),
+                    Marker(
                       point: LatLng(latitude, longitude),
                       builder:
                           (context) => const Icon(
@@ -61,7 +71,6 @@ class BreweryDetailsPage extends StatelessWidget {
             padding: const EdgeInsets.all(16.0),
             child: Text('Location: ${brewery.city}, ${brewery.state}'),
           ),
-          // ...existing code for additional brewery details...
         ],
       ),
     );
