@@ -49,7 +49,7 @@ class BreweryDetailsPage extends StatelessWidget {
                   markers: [
                     Marker(
                       width: 200,
-                      height: 50,
+                      height: 60,
                       point: LatLng(latitude + 0.006, longitude),
                       builder: (context) => MapToolTip(address: address),
                     ),

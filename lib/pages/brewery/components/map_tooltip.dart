@@ -28,7 +28,7 @@ class MapToolTip extends StatelessWidget {
               width: 200,
               child: Text(
                 address,
-                style: const TextStyle(fontSize: 12),
+                style: const TextStyle(fontSize: 14, color: Colors.black),
                 maxLines: 5,
                 textAlign: TextAlign.center,
               ),
