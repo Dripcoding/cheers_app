@@ -69,6 +69,13 @@ class _SearchPageState extends State<SearchPage> {
     });
   }
 
+  void _clearFormInputs() {
+    _cityInputController.clear();
+    _stateInputController.clear();
+    _countryInputController.clear();
+    _postalInputController.clear();
+  }
+
   @override
   Widget build(BuildContext context) {
     final breweriesState = Provider.of<BreweriesState>(context, listen: false);
@@ -94,30 +101,44 @@ class _SearchPageState extends State<SearchPage> {
                     addressControllers: _addressControllers,
                   ),
                 ),
-                FilledButton(
-                  key: const Key('search_brewery_button'),
-                  onPressed:
-                      _isFormValid
-                          ? () async {
-                            final queryParams = getQueryParams(
-                              _addressControllers,
-                              identifierState,
-                              sortState,
-                            );
-
-                            final breweries =
-                                await OpenBreweryService.getBreweries(
-                                  queryParams,
-                                  _httpClient,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    FilledButton(
+                      key: const Key('search_brewery_button'),
+                      onPressed:
+                          _isFormValid
+                              ? () async {
+                                final queryParams = getQueryParams(
+                                  _addressControllers,
+                                  identifierState,
+                                  sortState,
                                 );
-                            breweriesState.addBreweries(breweries);
 
-                            if (context.mounted) {
-                              Navigator.pushNamed(context, ROUTES.LIST.path);
-                            }
-                          }
-                          : null,
-                  child: const Text("Find your brewery"),
+                                final breweries =
+                                    await OpenBreweryService.getBreweries(
+                                      queryParams,
+                                      _httpClient,
+                                    );
+                                breweriesState.addBreweries(breweries);
+
+                                if (context.mounted) {
+                                  Navigator.pushNamed(
+                                    context,
+                                    ROUTES.LIST.path,
+                                  );
+                                }
+                              }
+                              : null,
+                      child: const Text("Find your brewery"),
+                    ),
+                    const SizedBox(width: 16),
+                    OutlinedButton(
+                      key: const Key('clear_form_button'),
+                      onPressed: _clearFormInputs,
+                      child: const Text("Clear"),
+                    ),
+                  ],
                 ),
               ],
             ),

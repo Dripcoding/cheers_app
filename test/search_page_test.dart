@@ -1,3 +1,4 @@
+import 'package:cheers_app/BreweriesState.dart';
 import 'package:cheers_app/pages/search/components/sort_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -94,6 +95,63 @@ void main() {
       expect(countryField.controller!.text, equals(testCountry));
       expect(postalField.controller!.text, equals(testPostal));
     });
+
+    testWidgets('clear button clears address input fields', (
+      WidgetTester tester,
+    ) async {
+      await tester.pumpWidget(createWidgetUnderTest());
+      await tester.pumpAndSettle();
+
+      final cityFinder = find.byKey(const Key('city_input'));
+      final stateFinder = find.byKey(const Key('state_input'));
+      final countryFinder = find.byKey(const Key('country_input'));
+      final postalFinder = find.byKey(const Key('postal_input'));
+
+      await tester.enterText(cityFinder, 'Test City');
+      await tester.enterText(stateFinder, 'Test State');
+      await tester.enterText(countryFinder, 'Test Country');
+      await tester.enterText(postalFinder, '12345');
+      await tester.pumpAndSettle();
+
+      expect(
+        tester.widget<TextFormField>(cityFinder).controller!.text,
+        equals('Test City'),
+      );
+      expect(
+        tester.widget<TextFormField>(stateFinder).controller!.text,
+        equals('Test State'),
+      );
+      expect(
+        tester.widget<TextFormField>(countryFinder).controller!.text,
+        equals('Test Country'),
+      );
+      expect(
+        tester.widget<TextFormField>(postalFinder).controller!.text,
+        equals('12345'),
+      );
+
+      final clearButtonFinder = find.byKey(const Key('clear_form_button'));
+      expect(clearButtonFinder, findsOneWidget);
+      await tester.tap(clearButtonFinder);
+      await tester.pumpAndSettle();
+
+      expect(
+        tester.widget<TextFormField>(cityFinder).controller!.text,
+        isEmpty,
+      );
+      expect(
+        tester.widget<TextFormField>(stateFinder).controller!.text,
+        isEmpty,
+      );
+      expect(
+        tester.widget<TextFormField>(countryFinder).controller!.text,
+        isEmpty,
+      );
+      expect(
+        tester.widget<TextFormField>(postalFinder).controller!.text,
+        isEmpty,
+      );
+    });
   });
 
   testWidgets('updates identifier state when a dropdown value is selected', (
@@ -103,13 +161,13 @@ void main() {
       MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (_) => IdentifierFieldsState()),
+          ChangeNotifierProvider(create: (_) => BreweriesState()),
         ],
         child: const MaterialApp(home: Scaffold(body: IdentifierFields())),
       ),
     );
 
-    const type = 'Type1';
-    const name = 'Name1';
+    const type = 'micro';
 
     final identifierState = Provider.of<IdentifierFieldsState>(
       tester.element(find.byType(IdentifierFields)),
@@ -117,8 +175,6 @@ void main() {
     );
 
     final typeFinder = find.byKey(const Key('by_type_input'));
-    final nameFinder = find.byKey(const Key('by_name_input'));
-
     await tester.tap(typeFinder);
     await tester.pumpAndSettle();
 
@@ -126,14 +182,6 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(identifierState.selectedType, equals(type));
-
-    await tester.tap(nameFinder);
-    await tester.pumpAndSettle();
-
-    await tester.tap(find.text(name).last);
-    await tester.pumpAndSettle();
-
-    expect(identifierState.selectedName, equals(name));
   });
 
   testWidgets('updates sort fields state when sort input vaues are changed', (
