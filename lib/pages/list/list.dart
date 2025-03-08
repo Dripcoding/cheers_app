@@ -8,7 +8,7 @@ class ListPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final breweriesState = Provider.of<BreweriesState>(context, listen: false);
+    final breweriesState = Provider.of<BreweriesState>(context);
 
     return Scaffold(
       appBar: AppBar(

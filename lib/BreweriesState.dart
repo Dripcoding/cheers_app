@@ -13,7 +13,7 @@ class BreweriesState extends ChangeNotifier {
       UnmodifiableListView(breweries);
 
   void addBreweries(List<Brewery> newBreweries) {
-    breweries.addAll(newBreweries);
+    breweries = newBreweries;
     notifyListeners();
   }
 
