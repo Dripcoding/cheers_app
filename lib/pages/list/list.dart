@@ -25,27 +25,42 @@ class ListPage extends StatelessWidget {
         child: ConstrainedBox(
           constraints: BoxConstraints(maxWidth: 1920, maxHeight: 1200),
           child: Padding(
-            padding: EdgeInsets.fromLTRB(40, 60, 40, 60),
-            child: ListView.builder(
-              scrollDirection: Axis.vertical,
-              itemCount: breweriesState.breweries.length,
-              itemBuilder: (context, index) {
-                final brewery = breweriesState.breweries[index];
-                return Card(
-                  child: ListTile(
-                    title: Text(brewery.name),
-                    subtitle: Text(brewery.city),
-                    trailing: Text(brewery.state),
-                    onTap: () {
-                      breweriesState.setActiveBrewery(brewery);
+            padding: EdgeInsets.fromLTRB(40, 20, 40, 60),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(16.0, 0, 0, 0),
+                  child: Text(
+                    'Found ${breweriesState.breweries.length} breweries',
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                ),
+                const SizedBox(height: 16),
+                Expanded(
+                  child: ListView.builder(
+                    scrollDirection: Axis.vertical,
+                    itemCount: breweriesState.breweries.length,
+                    itemBuilder: (context, index) {
+                      final brewery = breweriesState.breweries[index];
+                      return Card(
+                        child: ListTile(
+                          title: Text(brewery.name),
+                          subtitle: Text(brewery.city),
+                          trailing: Text(brewery.state),
+                          onTap: () {
+                            breweriesState.setActiveBrewery(brewery);
 
-                      if (context.mounted) {
-                        Navigator.pushNamed(context, ROUTES.DETAILS.path);
-                      }
+                            if (context.mounted) {
+                              Navigator.pushNamed(context, ROUTES.DETAILS.path);
+                            }
+                          },
+                        ),
+                      );
                     },
                   ),
-                );
-              },
+                ),
+              ],
             ),
           ),
         ),

@@ -29,7 +29,7 @@ class _SearchPageState extends State<SearchPage> {
 
   late final Map<InputNames, TextEditingController> _addressControllers;
 
-  bool _isFormValid = false; // Track form validity
+  bool _isFormValid = false;
 
   @override
   void initState() {
@@ -41,13 +41,11 @@ class _SearchPageState extends State<SearchPage> {
       InputNames.postal: _postalInputController,
     };
 
-    // Add listeners to all text controllers
     _cityInputController.addListener(_checkFormValidity);
     _stateInputController.addListener(_checkFormValidity);
     _countryInputController.addListener(_checkFormValidity);
     _postalInputController.addListener(_checkFormValidity);
 
-    // Initial check
     _checkFormValidity();
   }
 
@@ -61,7 +59,6 @@ class _SearchPageState extends State<SearchPage> {
     super.dispose();
   }
 
-  // Check if any form field has input
   void _checkFormValidity() {
     setState(() {
       _isFormValid =
@@ -119,7 +116,7 @@ class _SearchPageState extends State<SearchPage> {
                               Navigator.pushNamed(context, ROUTES.LIST.path);
                             }
                           }
-                          : null, // Disable when form is invalid
+                          : null,
                   child: const Text("Find your brewery"),
                 ),
               ],
