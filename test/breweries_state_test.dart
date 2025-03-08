@@ -14,7 +14,7 @@ void main() {
       expect(state.breweriesList, isEmpty);
     });
 
-    test('addBreweries appends breweries correctly', () {
+    test('addBreweries replaces breweries correctly instead of appending', () {
       final brewery1 = Brewery(
         id: '1',
         name: 'Brewery 1',
@@ -51,14 +51,40 @@ void main() {
         state: 'State 2',
         street: 'Street 2',
       );
+      final brewery3 = Brewery(
+        id: '3',
+        name: 'Brewery 3',
+        breweryType: 'large',
+        address1: 'Address 3',
+        address2: null,
+        address3: null,
+        city: 'City 3',
+        stateProvince: 'State 3',
+        postalCode: '22222',
+        country: 'Country 3',
+        longitude: '2.0',
+        latitude: '2.0',
+        phone: '789',
+        websiteUrl: 'http://example3.com',
+        state: 'State 3',
+        street: 'Street 3',
+      );
 
       state.addBreweries([brewery1]);
       expect(state.breweriesList.length, equals(1));
-
-      state.addBreweries([brewery2]);
-      expect(state.breweriesList.length, equals(2));
       expect(state.breweriesList[0].name, equals('Brewery 1'));
-      expect(state.breweriesList[1].name, equals('Brewery 2'));
+
+      state.addBreweries([brewery2, brewery3]);
+
+      expect(state.breweriesList.length, equals(2));
+      expect(state.breweriesList[0].name, equals('Brewery 2'));
+      expect(state.breweriesList[1].name, equals('Brewery 3'));
+
+      expect(
+        state.breweriesList.where((brewery) => brewery.id == '1').isEmpty,
+        isTrue,
+        reason: 'Brewery 1 should have been replaced, not appended',
+      );
     });
 
     test('notifyListeners is called on addBreweries', () {

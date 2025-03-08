@@ -16,6 +16,7 @@ class ListPage extends StatelessWidget {
           key: const Key('back_button'),
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
+            breweriesState.clear();
             Navigator.pushNamed(context, ROUTES.SEARCH.path);
           },
         ),

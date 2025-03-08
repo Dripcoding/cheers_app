@@ -26,4 +26,11 @@ class BreweriesState extends ChangeNotifier {
     activeBrewery = brewery;
     notifyListeners();
   }
+
+  void clear() {
+    breweries.clear();
+    breweryNames.clear();
+    activeBrewery = null;
+    notifyListeners();
+  }
 }

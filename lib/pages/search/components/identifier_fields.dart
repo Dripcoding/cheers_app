@@ -59,11 +59,14 @@ class IdentifierFields extends StatelessWidget {
                 value: state.selectedName,
                 isExpanded: true,
                 items: breweryNameItems,
-                onChanged: (value) {
-                  if (value != null) {
-                    state.setSelectedName(value);
-                  }
-                },
+                onChanged:
+                    breweryNameItems.isEmpty
+                        ? null
+                        : (value) {
+                          if (value != null) {
+                            state.setSelectedName(value);
+                          }
+                        },
               ),
             ),
             const SizedBox(height: 20),

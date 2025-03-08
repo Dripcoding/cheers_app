@@ -257,4 +257,27 @@ void main() {
     final searchButton = tester.widget<FilledButton>(searchButtonFinder);
     expect(searchButton.enabled, isTrue);
   });
+
+  testWidgets('name input is disabled by default', (WidgetTester tester) async {
+    final breweriesState = BreweriesState();
+
+    await tester.pumpWidget(
+      MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) => IdentifierFieldsState()),
+          ChangeNotifierProvider<BreweriesState>.value(value: breweriesState),
+        ],
+        child: const MaterialApp(home: Scaffold(body: IdentifierFields())),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    final nameInputFieldFinder = find.byKey(const Key('by_name_input'));
+    expect(nameInputFieldFinder, findsOneWidget);
+
+    final DropdownButtonFormField<String> nameInputField = tester.widget(
+      nameInputFieldFinder,
+    );
+    expect(nameInputField.onChanged, isNull);
+  });
 }
