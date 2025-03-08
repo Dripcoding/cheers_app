@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:cheers_app/BreweriesState.dart';
-import 'package:cheers_app/models/brewery.dart';
 import 'package:cheers_app/pages/brewery/brewery_details.dart';
 
 void main() {

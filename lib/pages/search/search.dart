@@ -29,6 +29,8 @@ class _SearchPageState extends State<SearchPage> {
 
   late final Map<InputNames, TextEditingController> _addressControllers;
 
+  bool _isFormValid = false; // Track form validity
+
   @override
   void initState() {
     super.initState();
@@ -38,6 +40,15 @@ class _SearchPageState extends State<SearchPage> {
       InputNames.country: _countryInputController,
       InputNames.postal: _postalInputController,
     };
+
+    // Add listeners to all text controllers
+    _cityInputController.addListener(_checkFormValidity);
+    _stateInputController.addListener(_checkFormValidity);
+    _countryInputController.addListener(_checkFormValidity);
+    _postalInputController.addListener(_checkFormValidity);
+
+    // Initial check
+    _checkFormValidity();
   }
 
   @override
@@ -48,6 +59,17 @@ class _SearchPageState extends State<SearchPage> {
     _countryInputController.dispose();
     _postalInputController.dispose();
     super.dispose();
+  }
+
+  // Check if any form field has input
+  void _checkFormValidity() {
+    setState(() {
+      _isFormValid =
+          _cityInputController.text.isNotEmpty ||
+          _stateInputController.text.isNotEmpty ||
+          _countryInputController.text.isNotEmpty ||
+          _postalInputController.text.isNotEmpty;
+    });
   }
 
   @override
@@ -77,23 +99,27 @@ class _SearchPageState extends State<SearchPage> {
                 ),
                 FilledButton(
                   key: const Key('search_brewery_button'),
-                  onPressed: () async {
-                    final queryParams = getQueryParams(
-                      _addressControllers,
-                      identifierState,
-                      sortState,
-                    );
+                  onPressed:
+                      _isFormValid
+                          ? () async {
+                            final queryParams = getQueryParams(
+                              _addressControllers,
+                              identifierState,
+                              sortState,
+                            );
 
-                    final breweries = await OpenBreweryService.getBreweries(
-                      queryParams,
-                      _httpClient,
-                    );
-                    breweriesState.addBreweries(breweries);
+                            final breweries =
+                                await OpenBreweryService.getBreweries(
+                                  queryParams,
+                                  _httpClient,
+                                );
+                            breweriesState.addBreweries(breweries);
 
-                    if (context.mounted) {
-                      Navigator.pushNamed(context, ROUTES.LIST.path);
-                    }
-                  },
+                            if (context.mounted) {
+                              Navigator.pushNamed(context, ROUTES.LIST.path);
+                            }
+                          }
+                          : null, // Disable when form is invalid
                   child: const Text("Find your brewery"),
                 ),
               ],

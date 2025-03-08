@@ -168,4 +168,45 @@ void main() {
     await tester.pumpAndSettle();
     expect(sortFieldsState.sortOrder, equals('desc'));
   });
+
+  testWidgets('Search button is disabled when no input is provided', (
+    WidgetTester tester,
+  ) async {
+    await tester.pumpWidget(createWidgetUnderTest());
+
+    final searchButtonFinder = find.byKey(const Key('search_brewery_button'));
+    expect(searchButtonFinder, findsOneWidget);
+
+    final searchButton = tester.widget<FilledButton>(searchButtonFinder);
+    expect(searchButton.enabled, isFalse);
+  });
+
+  testWidgets('Search button is enabled when input is provided', (
+    WidgetTester tester,
+  ) async {
+    await tester.pumpWidget(createWidgetUnderTest());
+
+    const testCity = 'Test City';
+    const testState = 'Test State';
+    const testCountry = 'Test Country';
+    const testPostal = '12345';
+
+    final cityFinder = find.byKey(const Key('city_input'));
+    final stateFinder = find.byKey(const Key('state_input'));
+    final countryFinder = find.byKey(const Key('country_input'));
+    final postalFinder = find.byKey(const Key('postal_input'));
+
+    await tester.enterText(cityFinder, testCity);
+    await tester.enterText(stateFinder, testState);
+    await tester.enterText(countryFinder, testCountry);
+    await tester.enterText(postalFinder, testPostal);
+
+    await tester.pumpAndSettle();
+
+    final searchButtonFinder = find.byKey(const Key('search_brewery_button'));
+    expect(searchButtonFinder, findsOneWidget);
+
+    final searchButton = tester.widget<FilledButton>(searchButtonFinder);
+    expect(searchButton.enabled, isTrue);
+  });
 }
