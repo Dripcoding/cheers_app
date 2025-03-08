@@ -17,19 +17,26 @@ class SearchForm extends StatelessWidget {
     return Form(
       child: ConstrainedBox(
         constraints: const BoxConstraints(maxWidth: 1920, maxHeight: 1200),
-        child: Row(
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            Expanded(child: AddressRow(controllers: addressControllers)),
-            Expanded(
-              child: const Column(
+        child: SizedBox(
+          height: MediaQuery.sizeOf(context).height * 0.25,
+          width: MediaQuery.sizeOf(context).width / 2,
+          child: Wrap(
+            direction: Axis.horizontal,
+            alignment: WrapAlignment.spaceBetween,
+            crossAxisAlignment: WrapCrossAlignment.center,
+            runAlignment: WrapAlignment.center,
+            spacing: 10,
+            runSpacing: 10,
+            children: [
+              AddressRow(controllers: addressControllers),
+              const Column(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [IdentifierFields(), SortFields()],
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
